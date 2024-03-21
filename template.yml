@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  WaterfallArtworksService:
+    Type: AWS::Serverless::Api
+    Description: "Serverless API for CRUD operations"
+    Properties:
+      Name: "waterfall-artworks-service"
+      StageName: Prod
+      Cors:
+        AllowMethods: "'OPTIONS, GET'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'http://localhost:3000'" # replace with frontend app URL
+
+  WaterfallArtworksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 10
+      Handler: dist/index.lambdaHandler
+      Runtime: nodejs20.x
+      Policies:
+        - AWSLambdaExecute
+        - SecretsManagerReadWrite
+      Events:
+        ArtworksOptions:
+          Type: Api
+          Properties:
+            Path: /artworks
+            Method: OPTIONS
+            RestApiId: !Ref WaterfallArtworksService
+        GetArtwork:
+          Type: Api
+          Properties:
+            Path: /artworks/{artworkId}
+            Method: GET
+            RestApiId: !Ref WaterfallArtworksService
+        GetArtworks:
+          Type: Api
+          Properties:
+            Path: /artworks/random/{departmentId}
+            Method: GET
+            RestApiId: !Ref WaterfallArtworksService
+        
+    Metadata:
+      BuildMethod: makefile
