@@ -4,7 +4,7 @@ Transform: AWS::Serverless-2016-10-31
 Resources:
   WaterfallArtworksService:
     Type: AWS::Serverless::Api
-    Description: "Serverless API for CRUD operations"
+    Description: "Serverless API for Waterfall"
     Properties:
       Name: "waterfall-artworks-service"
       StageName: Prod
@@ -19,6 +19,7 @@ Resources:
       Timeout: 10
       Handler: dist/index.lambdaHandler
       Runtime: nodejs20.x
+      CodeUri: .
       Policies:
         - AWSLambdaExecute
         - SecretsManagerReadWrite

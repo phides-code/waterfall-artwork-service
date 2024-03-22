@@ -1,4 +1,5 @@
 import { NUM_OF_ARTWORKS } from './constants';
+import getPalette from './getPalette';
 import { ArtworkList, Entity } from './types';
 
 const fetchArtwork = async (artworkId: number): Promise<Entity> => {
@@ -11,7 +12,7 @@ const fetchArtwork = async (artworkId: number): Promise<Entity> => {
     return await rawResponse.json();
 };
 
-const fetchRandomArtworks = async (
+const fetchRandomArtworksFromList = async (
     artworkList: ArtworkList
 ): Promise<Entity[]> => {
     const { total, objectIDs } = artworkList;
@@ -60,5 +61,17 @@ export const getRandomArtworks = async (
 
     const artworkList = (await rawResponse.json()) as ArtworkList;
 
-    return await fetchRandomArtworks(artworkList);
+    return await fetchRandomArtworksFromList(artworkList);
+};
+
+export const getEntity = async (artworkId: number): Promise<Entity> => {
+    const artwork: Entity = await fetchArtwork(artworkId);
+
+    const palette: string[] = await getPalette(
+        artwork.primaryImageSmall as string
+    );
+
+    artwork.palette = palette;
+
+    return artwork;
 };

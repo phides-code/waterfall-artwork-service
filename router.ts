@@ -7,10 +7,11 @@ import { clientError, handleError } from './helpers';
 import {
     ArtworkPathParams,
     DepartmentPathParams,
+    Entity,
     LambdaHandlerParams,
     ResponseStructure,
 } from './types';
-import { getRandomArtworks } from './apiUtils';
+import { getEntity, getRandomArtworks } from './apiUtils';
 
 export const router = async (handlerParams: LambdaHandlerParams) => {
     const { event, callback } = handlerParams;
@@ -50,7 +51,7 @@ const processGetRandom = async (handlerParams: LambdaHandlerParams) => {
             event.pathParameters as unknown as DepartmentPathParams;
         const { departmentId } = pathParameters;
 
-        const entities = await getRandomArtworks(departmentId);
+        const entities: Entity[] = await getRandomArtworks(departmentId);
 
         const response: ResponseStructure = {
             data: entities,
@@ -60,7 +61,6 @@ const processGetRandom = async (handlerParams: LambdaHandlerParams) => {
         return callback(null, {
             statusCode: 200,
             body: JSON.stringify(response),
-            // body: 'OK',
             headers,
         });
     } catch (err) {
@@ -71,20 +71,21 @@ const processGetRandom = async (handlerParams: LambdaHandlerParams) => {
 const processGetEntityById = async (handlerParams: LambdaHandlerParams) => {
     const { callback, event } = handlerParams;
     try {
-        // const entity: Entity = (await getEntity(handlerParams)) as Entity;
-
-        // const response: ResponseStructure = {
-        //     data: entity,
-        //     errorMessage: null,
-        // };
-
         const pathParameters =
             event.pathParameters as unknown as ArtworkPathParams;
 
+        const { artworkId } = pathParameters;
+
+        const entity: Entity = (await getEntity(artworkId)) as Entity;
+
+        const response: ResponseStructure = {
+            data: entity,
+            errorMessage: null,
+        };
+
         return callback(null, {
             statusCode: 200,
-            // body: JSON.stringify(response),
-            body: 'OK',
+            body: JSON.stringify(response),
             headers,
         });
     } catch (err) {
