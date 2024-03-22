@@ -13,7 +13,7 @@ init: build
 
 .PHONY: deploy
 deploy: build
-	sam deploy
+	sam deploy --no-fail-on-empty-changeset
 
 .PHONY: delete
 delete:
