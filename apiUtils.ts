@@ -24,17 +24,19 @@ const fetchRandomArtworksFromList = async (
 
         const candidateRandomArtworkId = objectIDs[randomIndex];
 
-        const result = (await fetchArtwork(candidateRandomArtworkId)) as Entity;
+        const candidateRandomArtwork = (await fetchArtwork(
+            candidateRandomArtworkId
+        )) as Entity;
 
-        // if this result has already been added or if doesn't have a valid primaryImageSmall url, pick again
+        // if this candidateRandomArtwork has already been added or if doesn't have a valid primaryImageSmall url, pick again
         if (
             !randomArtworks.find(
                 (artwork) => artwork.objectID === candidateRandomArtworkId
             ) &&
-            result.primaryImageSmall !== null &&
-            typeof result.primaryImageSmall === 'string' &&
+            candidateRandomArtwork.primaryImageSmall !== null &&
+            typeof candidateRandomArtwork.primaryImageSmall === 'string' &&
             /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
-                result.primaryImageSmall
+                candidateRandomArtwork.primaryImageSmall
             )
         ) {
             console.log(
@@ -42,7 +44,7 @@ const fetchRandomArtworksFromList = async (
                 randomArtworks.length + 1
             );
 
-            randomArtworks.push(result);
+            randomArtworks.push(candidateRandomArtwork);
         } else {
             console.log('*** redoing random selection ***');
         }

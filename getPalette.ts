@@ -21,9 +21,10 @@ const fetchImageData = async (url: string): Promise<ImageData> => {
 
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, img.width, img.height);
-    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+    // const imageData = ctx.getImageData(0, 0, img.width, img.height);
 
-    return imageData as ImageData;
+    // return imageData as ImageData;
+    return ctx.getImageData(0, 0, img.width, img.height) as ImageData;
 };
 
 // credit https://github.com/zygisS22/color-palette-extraction
