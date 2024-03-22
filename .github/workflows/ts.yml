@@ -36,6 +36,9 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: ${{ env.SAM_REGION }}
 
-            - name: Deploy with SAM
+            # - name: Deploy with SAM
+            #   run: |
+            #       sam deploy --stack-name ${{ env.SAM_STACK_NAME }} --region ${{ env.SAM_REGION }} --capabilities ${{ env.SAM_CAPABILITIES }} --resolve-s3 --no-confirm-changeset --no-fail-on-empty-changeset
+            - name: Make Deploy
               run: |
-                  sam deploy --stack-name ${{ env.SAM_STACK_NAME }} --region ${{ env.SAM_REGION }} --capabilities ${{ env.SAM_CAPABILITIES }} --resolve-s3 --no-confirm-changeset --no-fail-on-empty-changeset
+                  make deploy
