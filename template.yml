@@ -18,7 +18,9 @@ Resources:
     Properties:
       Timeout: 10
       Handler: dist/index.lambdaHandler
-      Runtime: nodejs20.x
+      Layers:
+      - arn:aws:lambda:ca-central-1:950671533172:layer:canvas-nodejs:1
+      Runtime: nodejs18.x
       CodeUri: .
       Policies:
         - AWSLambdaExecute

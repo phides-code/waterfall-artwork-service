@@ -10,24 +10,20 @@ const MAX_DEPTH = 3;
 const QUANTIZATION_DEFAULT_DEPTH = 0;
 
 const fetchImageData = async (url: string): Promise<ImageData> => {
-    try {
-        const fetchResponse = await fetch(url);
-        const buffer = await fetchResponse.arrayBuffer();
+    const fetchResponse = await fetch(url);
+    const buffer = await fetchResponse.arrayBuffer();
 
-        const img = new Image();
+    const img = new Image();
 
-        img.src = Buffer.from(buffer);
+    img.src = Buffer.from(buffer);
 
-        const canvas = createCanvas(img.width, img.height);
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, img.width, img.height);
-        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+    const canvas = createCanvas(img.width, img.height);
 
-        return imageData as ImageData;
-    } catch (error: any) {
-        console.log('fetchImageData caught error');
-        return error;
-    }
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+
+    return imageData as ImageData;
 };
 
 // credit https://github.com/zygisS22/color-palette-extraction
