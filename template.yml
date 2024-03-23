@@ -11,7 +11,7 @@ Resources:
       Cors:
         AllowMethods: "'OPTIONS, GET'"
         AllowHeaders: "'Content-Type'"
-        AllowOrigin: "'https://d2zie2don46asa.cloudfront.net'" 
+        AllowOrigin: "'https://d1bqzaqfmodwzz.cloudfront.net'" 
 
   WaterfallArtworksFunction:
     Type: AWS::Serverless::Function
