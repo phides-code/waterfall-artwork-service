@@ -1,5 +1,4 @@
-// customize OriginURL, ApiPath, and TableName
-export const OriginURL = 'http://localhost:3000';
+export const OriginURL = 'https://d3m2a1dx74m8r6.cloudfront.net';
 
 export const headers = {
     'Access-Control-Allow-Origin': OriginURL,
