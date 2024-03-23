@@ -1,4 +1,4 @@
-export const OriginURL = 'https://d3m2a1dx74m8r6.cloudfront.net';
+export const OriginURL = 'https://d2zie2don46asa.cloudfront.net';
 
 export const headers = {
     'Access-Control-Allow-Origin': OriginURL,
