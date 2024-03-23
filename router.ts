@@ -95,7 +95,7 @@ const processGetEntityById = async (handlerParams: LambdaHandlerParams) => {
 
 const processOptions = async (callback: APIGatewayProxyCallback) => {
     const corsHeaders = {
-        'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, PUT, DELETE',
+        'Access-Control-Allow-Methods': 'OPTIONS, GET',
         'Access-Control-Max-Age': '3600',
     };
 
