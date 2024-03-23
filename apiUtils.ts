@@ -9,7 +9,18 @@ const fetchArtwork = async (artworkId: number): Promise<Entity> => {
         `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artworkId}`
     );
 
-    return await rawResponse.json();
+    const response = (await rawResponse.json()) as Entity;
+
+    return {
+        artistDisplayName: response.artistDisplayName,
+        country: response.country,
+        objectDate: response.objectDate,
+        objectID: response.objectID,
+        palette: response.palette,
+        primaryImage: response.primaryImage,
+        primaryImageSmall: response.primaryImageSmall,
+        title: response.title,
+    } as Entity;
 };
 
 const fetchRandomArtworksFromList = async (
