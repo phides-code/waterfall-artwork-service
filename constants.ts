@@ -1,4 +1,4 @@
-export const OriginURL = 'https://d1bqzaqfmodwzz.cloudfront.net';
+export const OriginURL = 'https://waterfall.phil-code.com';
 
 export const headers = {
     'Access-Control-Allow-Origin': OriginURL,
