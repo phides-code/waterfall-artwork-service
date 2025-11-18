@@ -20,7 +20,7 @@ Resources:
       Handler: dist/index.lambdaHandler
       Layers:
       - arn:aws:lambda:ca-central-1:950671533172:layer:canvas-nodejs:1
-      Runtime: nodejs18.x
+      Runtime: nodejs22.x
       CodeUri: .
       Policies:
         - AWSLambdaExecute
