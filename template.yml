@@ -11,7 +11,8 @@ Resources:
       Cors:
         AllowMethods: "'OPTIONS, GET'"
         AllowHeaders: "'Content-Type'"
-        AllowOrigin: "'https://waterfall.phil-code.com'" 
+        # AllowOrigin: "'https://waterfall.phil-code.com'" 
+        AllowOrigin: "'http://localhost:3000'" 
 
   WaterfallArtworksFunction:
     Type: AWS::Serverless::Function
@@ -19,7 +20,7 @@ Resources:
       Timeout: 10
       Handler: dist/index.lambdaHandler
       Layers:
-      - arn:aws:lambda:ca-central-1:950671533172:layer:canvas-nodejs:1
+      - arn:aws:lambda:ca-central-1:950671533172:layer:canvas-layer:1
       Runtime: nodejs22.x
 
       CodeUri: .

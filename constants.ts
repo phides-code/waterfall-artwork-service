@@ -1,4 +1,5 @@
-export const OriginURL = 'https://waterfall.phil-code.com';
+// export const OriginURL = 'https://waterfall.phil-code.com';
+export const OriginURL = 'http://localhost:3000';
 
 export const headers = {
     'Access-Control-Allow-Origin': OriginURL,
