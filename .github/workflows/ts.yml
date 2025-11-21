@@ -13,7 +13,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             SAM_STACK_NAME: waterfall-artworks-service
-            SAM_REGION: ca-central-1
+            SAM_REGION: us-east-1
             SAM_CAPABILITIES: CAPABILITY_IAM
         steps:
             - uses: actions/checkout@v5
