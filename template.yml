@@ -18,6 +18,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Timeout: 10
+      MemorySize: 512   # MB; pick what you need (128–10240)
       Handler: dist/index.lambdaHandler
       Layers:
       - arn:aws:lambda:ca-central-1:950671533172:layer:canvas-layer:1
