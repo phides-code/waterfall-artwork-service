@@ -14,8 +14,8 @@ Resources:
       Cors:
         AllowMethods: "'OPTIONS, GET'"
         AllowHeaders: "'Content-Type, x-amz-content-sha256, x-amz-date, X-Amz-Security-Token, Authorization'"
-        # AllowOrigin: "'https://waterfall.phil-code.com'" 
-        AllowOrigin: "'http://localhost:3000'" 
+        AllowOrigin: "'https://waterfall.phil-code.com'" 
+        # AllowOrigin: "'http://localhost:5173'" 
         AllowCredentials: true
       # Logging settings
       MethodSettings:
