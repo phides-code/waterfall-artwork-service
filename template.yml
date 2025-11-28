@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  WaterfallArtworksService:
+    Type: AWS::Serverless::Api
+    Description: "Serverless API for Waterfall"
+    Properties:
+      Name: "waterfall-artworks-service"
+      StageName: Prod
+      Auth:
+        DefaultAuthorizer: AWS_IAM
+        InvokeRole: NONE
+      Cors:
+        AllowMethods: "'OPTIONS, GET'"
+        AllowHeaders: "'Content-Type, x-amz-content-sha256, x-amz-date, X-Amz-Security-Token, Authorization'"
+        # AllowOrigin: "'https://waterfall.phil-code.com'" 
+        AllowOrigin: "'http://localhost:3000'" 
+        AllowCredentials: true
+      # Logging settings
+      MethodSettings:
+        - LoggingLevel: INFO
+          ResourcePath: "/*"
+          HttpMethod: "*"
+          MetricsEnabled: true
+          DataTraceEnabled: true
+
+  WaterfallArtworksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Timeout: 10
+      MemorySize: 512
+      Handler: dist/index.lambdaHandler
+      Layers:
+      - arn:aws:lambda:us-east-1:950671533172:layer:canvas-layer:1
+      Runtime: nodejs22.x
+
+      CodeUri: .
+      Policies:
+        - AWSLambdaExecute
+        - SecretsManagerReadWrite
+      Events:
+      #  disable this one?
+        ArtworksOptions:
+          Type: Api
+          Properties:
+            Path: /artworks
+            Method: OPTIONS
+            RestApiId: !Ref WaterfallArtworksService
+            Auth:
+              Authorizer: NONE
+        ArtworksOptionsId:
+          Type: Api
+          Properties:
+            Path: /artworks/{artworkId}
+            Method: OPTIONS
+            RestApiId: !Ref WaterfallArtworksService
+            Auth:
+              Authorizer: NONE
+        ArtworksRandomOptionsId:
+          Type: Api
+          Properties:
+            Path: /artworks/random/{departmentId}
+            Method: OPTIONS
+            RestApiId: !Ref WaterfallArtworksService
+            Auth:
+              Authorizer: NONE
+              
+        GetArtwork:
+          Type: Api
+          Properties:
+            Path: /artworks/{artworkId}
+            Method: GET
+            RestApiId: !Ref WaterfallArtworksService
+        GetArtworks:
+          Type: Api
+          Properties:
+            Path: /artworks/random/{departmentId}
+            Method: GET
+            RestApiId: !Ref WaterfallArtworksService
+        
+    Metadata:
+      BuildMethod: makefile
