@@ -13,7 +13,7 @@ init: build
 
 .PHONY: deploy
 deploy: build
-	sam deploy --no-fail-on-empty-changeset
+	sam deploy --parameter-overrides AwsCfToken="$(AWS_CF_TOKEN)"
 
 .PHONY: delete
 delete:

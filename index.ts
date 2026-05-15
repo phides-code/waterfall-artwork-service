@@ -1,17 +1,15 @@
-import { Context, APIGatewayProxyCallback, APIGatewayEvent } from 'aws-lambda';
+import { Context, APIGatewayEvent } from 'aws-lambda';
 
 import { router } from './router';
 import { LambdaHandlerParams } from './types';
 
-export const lambdaHandler = (
+export const lambdaHandler = async (
     event: APIGatewayEvent,
     _context: Context,
-    callback: APIGatewayProxyCallback
-): void => {
+) => {
     const handlerParams: LambdaHandlerParams = {
-        callback,
         event,
     };
 
-    router(handlerParams);
+    return router(handlerParams);
 };

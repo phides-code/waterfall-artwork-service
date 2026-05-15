@@ -13,7 +13,6 @@ export interface Entity {
 
 export interface LambdaHandlerParams {
     event: APIGatewayEvent;
-    callback: APIGatewayProxyCallback;
 }
 
 export interface ResponseStructure {

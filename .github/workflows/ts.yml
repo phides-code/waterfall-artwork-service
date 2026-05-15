@@ -21,13 +21,13 @@ jobs:
             - name: Setup Node.js environment
               uses: actions/setup-node@v6
               with:
-                  node-version: '22'
+                  node-version: '24'
 
             - name: SAM Build
               run: sam build
 
             - name: Configure AWS credentials
-              uses: aws-actions/configure-aws-credentials@v5
+              uses: aws-actions/configure-aws-credentials@v6
               with:
                   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -36,3 +36,5 @@ jobs:
             - name: Make Deploy
               run: |
                   make deploy
+              env:
+                  AWS_CF_TOKEN: ${{ secrets.AWS_CF_TOKEN }}

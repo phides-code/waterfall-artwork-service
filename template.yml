@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Parameters:
+  AwsCfToken:
+    Type: String
+    NoEcho: true
+    Description: Token for API auth (e.g. Cloudflare or custom); set via --parameter-overrides AwsCfToken=xxx when deploying
+
 Resources:
   WaterfallArtworksService:
     Type: AWS::Serverless::Api
@@ -33,12 +39,14 @@ Resources:
       Handler: dist/index.lambdaHandler
       Layers:
       - arn:aws:lambda:us-east-1:950671533172:layer:canvas-layer:1
-      Runtime: nodejs22.x
+      Runtime: nodejs24.x
+      Environment:
+        Variables:
+          AWS_CF_TOKEN: !Ref AwsCfToken  # comes from --parameter-overrides      
 
       CodeUri: .
       Policies:
         - AWSLambdaExecute
-        - SecretsManagerReadWrite
       Events:
       #  disable this one?
         ArtworksOptions:
@@ -47,24 +55,18 @@ Resources:
             Path: /artworks
             Method: OPTIONS
             RestApiId: !Ref WaterfallArtworksService
-            Auth:
-              Authorizer: NONE
         ArtworksOptionsId:
           Type: Api
           Properties:
             Path: /artworks/{artworkId}
             Method: OPTIONS
             RestApiId: !Ref WaterfallArtworksService
-            Auth:
-              Authorizer: NONE
         ArtworksRandomOptionsId:
           Type: Api
           Properties:
             Path: /artworks/random/{departmentId}
             Method: OPTIONS
             RestApiId: !Ref WaterfallArtworksService
-            Auth:
-              Authorizer: NONE
               
         GetArtwork:
           Type: Api
